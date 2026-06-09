@@ -1,6 +1,6 @@
-# Fruit Blade — Webcam Ninja
+# Fruit Blade
 
-A browser-based Fruit Ninja clone controlled entirely through **webcam hand tracking**. Slice flying fruits with your hands — no mouse or touch required.
+A browser-based slicing game controlled entirely through **webcam hand tracking**. Slice flying fruits with your hands — no mouse or touch required.
 
 ## Features
 
@@ -27,7 +27,7 @@ A browser-based Fruit Ninja clone controlled entirely through **webcam hand trac
 ### Run locally
 
 ```bash
-cd fruit-ninja-webcam
+cd fruit-blade
 python3 -m http.server 8080
 # or: npx serve -p 8080
 ```
@@ -73,7 +73,7 @@ Sprites are loaded by `js/rendering/AssetLoader.js`. Missing files fall back to 
 ## Project structure
 
 ```
-fruit-ninja-webcam/
+fruit-blade/
 ├── index.html
 ├── sw.js                    # caches shell + assets (optional offline)
 ├── css/styles.css

@@ -1,5 +1,5 @@
 /**
- * Classic / Arcade / Zen — Fruit Ninja-style mode rules (webcam only).
+ * Classic / Arcade / Zen — Fruit Blade mode rules (webcam only).
  */
 export const GAME_MODES = {
   classic: {
@@ -72,7 +72,7 @@ export const GAME_MODES = {
 };
 
 export const DEFAULT_GAME_MODE = 'classic';
-export const GAME_MODE_STORAGE_KEY = 'fruitNinja_gameMode';
+export const GAME_MODE_STORAGE_KEY = 'fruitBlade_gameMode';
 
 export function getGameMode(id) {
   return GAME_MODES[id] || GAME_MODES[DEFAULT_GAME_MODE];

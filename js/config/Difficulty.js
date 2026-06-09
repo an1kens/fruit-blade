@@ -77,7 +77,7 @@ export const DIFFICULTY_MODES = {
 };
 
 export const DEFAULT_DIFFICULTY = 'medium';
-export const DIFFICULTY_STORAGE_KEY = 'fruitNinja_difficulty';
+export const DIFFICULTY_STORAGE_KEY = 'fruitBlade_difficulty';
 
 export function getDifficulty(id) {
   return DIFFICULTY_MODES[id] || DIFFICULTY_MODES[DEFAULT_DIFFICULTY];

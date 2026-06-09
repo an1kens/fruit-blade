@@ -1,6 +1,6 @@
 # Claude Prompt: Fruit Blade UX/UI Analysis for Figma Redesign
 
-You are a senior UX/UI designer and product strategist. Analyze the current state of **Fruit Blade** (a browser-based Fruit Ninja clone controlled via webcam hand tracking) and produce actionable recommendations for a Figma redesign.
+You are a senior UX/UI designer and product strategist. Analyze the current state of **Fruit Blade** (a browser-based webcam slicing game) and produce actionable recommendations for a Figma redesign.
 
 Use this brief as your sole source of truth about the current app. Ask clarifying questions only if something critical is ambiguous.
 
@@ -8,13 +8,13 @@ Use this brief as your sole source of truth about the current app. Ask clarifyin
 
 ## 1. Product Summary
 
-**Fruit Blade** is a browser-based Fruit Ninja clone controlled via **webcam hand tracking** (MediaPipe). Players slice flying fruits with hand swipes — no mouse/touch required for core gameplay.
+**Fruit Blade** is a browser-based slicing game controlled via **webcam hand tracking** (MediaPipe). Players slice flying fruits with hand swipes — no mouse/touch required for core gameplay.
 
 **Core differentiator:** The entire navigation model is gesture-first. Menus, pause, game over, and leaderboard are all **sliceable fruits on a live webcam canvas**, not traditional buttons.
 
 **Tech stack:** Vanilla HTML/CSS/JS, Canvas 2D rendering, design tokens in CSS + mirrored in JS, SVG sprite assets.
 
-**Repo path:** `fruit-ninja-webcam/`
+**Repo path:** `fruit-blade/`
 
 ---
 

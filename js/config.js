@@ -48,9 +48,12 @@ export const CONFIG = {
     calibrationBBoxTooSmall: 0.08,
     /** Above this — prompt user to move back */
     calibrationBBoxTooLarge: 0.38,
-    /** Min velocity to show "too slow" hint (px/s) */
+    /** Min velocity to show "too slow" hint (px/s) — overridden by near-miss band in Game.js */
     tooSlowMinVelocity: 180,
-    tooSlowHintCooldownMs: 2200,
+    tooSlowHintCooldownMs: 7000,
+    /** Show hint only when speed is this fraction of slice threshold (near miss) */
+    tooSlowNearMissMin: 0.58,
+    tooSlowNearMissMax: 0.9,
     // Fist gate: blade off when index + middle fingertips are curled
     fistCurledRatio: 0.92,
   },
@@ -162,14 +165,14 @@ export const CONFIG = {
   audio: {
     defaultMusicVolume: 0.35,
     defaultSfxVolume: 0.7,
-    storageKey: 'fruitNinja_audio',
+    storageKey: 'fruitBlade_audio',
   },
 
   storage: {
-    highScoreKey: 'fruitNinja_highScores',
-    statsKey: 'fruitNinja_stats',
-    dailyChallengeKey: 'fruitNinja_daily',
-    tutorialKey: 'fruitNinja_tutorialDone',
+    highScoreKey: 'fruitBlade_highScores',
+    statsKey: 'fruitBlade_stats',
+    dailyChallengeKey: 'fruitBlade_daily',
+    tutorialKey: 'fruitBlade_tutorialDone',
     maxEntriesPerBucket: 10,
   },
 

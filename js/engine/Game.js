@@ -777,16 +777,22 @@ export class Game {
   }
 
   checkTooSlowFeedback() {
+    if (this.state !== GAME_STATES.PLAYING) return;
+
+    const hasTargets = this.waveManager.entities.some((e) => e.alive && !e.sliced);
+    if (!hasTargets) return;
+
     const threshold = this.getSliceThreshold();
-    const minV = CONFIG.handTracking.tooSlowMinVelocity ?? 180;
-    const cooldown = CONFIG.handTracking.tooSlowHintCooldownMs ?? 2200;
+    const nearMin = threshold * (CONFIG.handTracking.tooSlowNearMissMin ?? 0.58);
+    const nearMax = threshold * (CONFIG.handTracking.tooSlowNearMissMax ?? 0.9);
+    const cooldown = CONFIG.handTracking.tooSlowHintCooldownMs ?? 7000;
     const now = performance.now();
     if (now - this.lastTooSlowHint < cooldown) return;
 
     for (const hand of this.handTracker.hands) {
       if (!hand.bladeActive) continue;
-      if (hand.velocity >= threshold) continue;
-      if (hand.velocity < minV) continue;
+      const v = hand.velocity;
+      if (v < nearMin || v >= nearMax) continue;
 
       this.lastTooSlowHint = now;
       this.renderer.effects.addFloatingScore(
