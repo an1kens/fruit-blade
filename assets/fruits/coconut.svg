@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="coconut">
+  <defs><radialGradient id="g" cx="35%" cy="30%" r="68%">
+      <stop offset="0%" stop-color="#D7CCC8"/>
+      <stop offset="100%" stop-color="#8D6E63"/>
+    </radialGradient></defs>
+  <g>
+      <circle cx="64" cy="68" r="40" fill="url(#g)" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="52" cy="60" r="6" fill="#5D4037" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="76" cy="60" r="6" fill="#5D4037" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="64" cy="82" r="6" fill="#5D4037" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="46" cy="56" r="9" fill="rgba(255,255,255,0.82)"/>
+   <circle cx="52" cy="61" r="2.88" fill="rgba(255,255,255,0.5)"/></g>
+</svg>

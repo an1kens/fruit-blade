@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Blade — Mobile Screens</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    .screen-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; padding: 24px 16px; }
+    .wordmark-sm { font-family: var(--font-display); font-size: 28px; font-weight: 600; background: linear-gradient(135deg, #ffe566, #ff4757); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; }
+    .fruit-col { display: flex; flex-direction: column; gap: 24px; align-items: center; margin-top: 24px; }
+    .hud-mobile { display: flex; flex-direction: column; gap: 8px; }
+    .rotate-card { text-align: center; padding: 24px; max-width: 320px; margin: auto; }
+    .rotate-card h2 { font-family: var(--font-display); font-size: 22px; margin: 12px 0; }
+  </style>
+</head>
+<body class="gallery">
+  <h1 style="font-family:var(--font-display);font-size:32px;">Mobile Screens — 390×844</h1>
+  <p style="color:rgba(255,250,245,0.6);margin-bottom:32px;">Paste into Figma page "Mobile + Motion Spec"</p>
+
+  <p class="frame-label">03 Main Menu — Mobile</p>
+  <div class="frame frame-mobile">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner">
+      <div class="wordmark-sm">Fruit Blade</div>
+      <p style="text-align:center;font-size:13px;color:rgba(255,250,245,0.55);margin-top:8px;">Best: 18,400</p>
+      <div class="glass-panel" style="margin-top:20px;">
+        <div class="panel-label">Choose mode</div>
+        <div class="fruit-col">
+          <div class="menu-fruit large selected"><img src="../../assets/fruits/apple.svg" alt="" width="88" height="88" /><span class="label">Classic</span></div>
+          <div class="menu-fruit large"><img src="../../assets/fruits/orange.svg" alt="" width="88" height="88" /><span class="label">Arcade</span></div>
+          <div class="menu-fruit large"><img src="../../assets/fruits/peach.svg" alt="" width="88" height="88" /><span class="label">Zen</span></div>
+        </div>
+      </div>
+      <div class="glass-panel" style="margin-top:16px;">
+        <div class="panel-label">Difficulty</div>
+        <div style="display:flex;justify-content:center;gap:24px;margin-top:8px;">
+          <div class="menu-fruit compact selected"><img src="../../assets/fruits/mango.svg" alt="" /><span class="label">Medium</span></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:24px;">
+        <div class="menu-fruit large"><img src="../../assets/fruits/banana.svg" alt="" width="96" height="96" /><span class="label">PLAY</span></div>
+      </div>
+      <div class="settings-chip" style="position:absolute;bottom:24px;right:16px;">⚙</div>
+    </div>
+  </div>
+
+  <p class="frame-label">05 Gameplay HUD — Mobile</p>
+  <div class="frame frame-mobile">
+    <div class="webcam-bg"></div>
+    <div class="screen-inner">
+      <div class="hud-mobile">
+        <div class="hud-chip">⭐ 12,450</div>
+        <div class="hud-chip urgent">⏱ 0:08</div>
+        <div class="hud-chip">❤️ ❤️ ❤️</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="frame-label">09 Portrait prompt — Mobile</p>
+  <div class="frame frame-mobile">
+    <div class="scrim scrim-pause"></div>
+    <div class="screen-inner" style="justify-content:center;align-items:center;">
+      <div class="glass-panel rotate-card">
+        <div style="font-size:40px;">📱↻</div>
+        <h2>Rotate for best experience</h2>
+        <p style="font-size:14px;color:rgba(255,250,245,0.65);">Landscape works best for hand slicing.</p>
+        <button class="btn-secondary" style="margin-top:16px;width:100%;">Continue anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:48px;"><a href="index.html" style="color:var(--yellow-400);">← Back to hub</a></p>
+</body>
+</html>

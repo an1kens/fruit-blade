@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80" role="img" aria-label="Fruit Blade">
+  <defs>
+    <linearGradient id="blade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE566"/>
+      <stop offset="55%" stop-color="#FF9800"/>
+      <stop offset="100%" stop-color="#FF4757"/>
+    </linearGradient>
+    <linearGradient id="fruit" x1="30%" y1="20%" x2="70%" y2="90%">
+      <stop offset="0%" stop-color="#FF8A80"/>
+      <stop offset="100%" stop-color="#E53935"/>
+    </linearGradient>
+  </defs>
+  <circle cx="36" cy="40" r="22" fill="url(#fruit)" stroke="#6B5344" stroke-width="2"/>
+  <ellipse cx="30" cy="34" rx="6" ry="4" fill="rgba(255,255,255,0.7)"/>
+  <path d="M34 18 L36 10 L38 18" fill="#7CB87A" stroke="#6B5344" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="72" y="48" font-family="Segoe UI, system-ui, sans-serif" font-size="34" font-weight="800" fill="url(#blade)">Fruit Blade</text>
+  <path d="M268 52 L296 28 L302 34 L274 58 Z" fill="#FFE566" opacity="0.85"/>
+</svg>

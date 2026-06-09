@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Blade — Components</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    .section { margin-bottom: 48px; }
+    .section h2 { font-family: var(--font-display); font-size: 24px; margin-bottom: 16px; }
+    .component-grid { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+    .spec { font-size: 12px; color: rgba(255,250,245,0.5); margin-top: 8px; max-width: 200px; }
+    .scrim-demo { width: 320px; height: 200px; position: relative; border-radius: 12px; overflow: hidden; }
+    .lb-row { display: flex; align-items: center; height: 44px; padding: 0 12px; border-bottom: 1px solid var(--border-glass); font-size: 14px; }
+    .lb-row.gold { color: var(--yellow-400); }
+    .lb-row.you { background: rgba(255, 229, 102, 0.12); }
+  </style>
+</head>
+<body class="gallery">
+  <h1 style="font-family:var(--font-display);font-size:32px;margin-bottom:8px;">Components</h1>
+  <p style="color:rgba(255,250,245,0.6);margin-bottom:32px;">Build each as a Figma component on the Foundations page. Bind semantic variables.</p>
+
+  <div class="section">
+    <h2>Scrim</h2>
+    <div class="component-grid">
+      <div>
+        <div class="scrim-demo frame">
+          <div class="webcam-bg"></div>
+          <div class="scrim"></div>
+        </div>
+        <p class="spec">Menu: gradient top 55% → mid 30% → bottom 60%. Pause: flat 70%.</p>
+      </div>
+      <div>
+        <div class="scrim-demo frame">
+          <div class="webcam-bg"></div>
+          <div class="scrim scrim-pause"></div>
+        </div>
+        <p class="spec">Pause overlay variant</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Glass Panel</h2>
+    <div class="component-grid">
+      <div class="glass-panel" style="width:360px;">
+        <div class="panel-label">Choose mode</div>
+        <div style="display:flex;justify-content:space-around;">
+          <div class="menu-fruit large"><img src="../../assets/fruits/apple.svg" alt="" /><span class="label">Classic</span><span class="sublabel">3 strikes</span></div>
+          <div class="menu-fruit large selected"><img src="../../assets/fruits/orange.svg" alt="" /><span class="label">Arcade</span><span class="sublabel">60 seconds</span></div>
+        </div>
+      </div>
+      <p class="spec">radius/md 20 · padding 20/24 · stroke border/panel 1.5px</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Menu Fruit</h2>
+    <div class="component-grid">
+      <div class="menu-fruit large"><img src="../../assets/fruits/banana.svg" alt="" /><span class="label">PLAY</span></div>
+      <div class="menu-fruit large selected"><img src="../../assets/fruits/mango.svg" alt="" /><span class="label">Medium</span><span class="sublabel">Balanced</span></div>
+      <div class="menu-fruit compact"><img src="../../assets/fruits/coconut.svg" alt="" /><span class="label">Back</span></div>
+      <p class="spec">Large 104px · Compact 72px · Hit zone 140px · Bob ±6px 2.4s · Selected: 4px yellow ring + glow</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>HUD Chip</h2>
+    <div class="component-grid">
+      <div class="hud-chip">⭐ 12,450</div>
+      <div class="hud-chip urgent">⏱ 0:08</div>
+      <div class="hud-chip" style="color:var(--green-400);">×3</div>
+      <p class="spec">h 44 · pill · tabular nums · urgent: danger tint + pulse 1.06×</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Progress Ring</h2>
+    <div class="component-grid">
+      <div class="progress-ring">
+        <svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="38" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="8"/><circle cx="44" cy="44" r="38" fill="none" stroke="url(#rg)" stroke-width="8" stroke-dasharray="179 239" stroke-linecap="round"/><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a8e06c"/><stop offset="100%" stop-color="#ffe566"/></linearGradient></defs></svg>
+        <div class="icon">✋</div>
+      </div>
+      <div class="progress-ring">
+        <svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="38" fill="none" stroke="#a8e06c" stroke-width="8"/><circle cx="44" cy="44" r="38" fill="none" stroke="none"/></svg>
+        <div class="icon" style="color:var(--green-400);">✓</div>
+      </div>
+      <p class="spec">88px ⌀ · 8px stroke · green→yellow sweep · success = green + check</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Cycling Filter Pill</h2>
+    <div class="component-grid">
+      <div class="filter-pill">🍎 Classic <span class="chevron">↻</span></div>
+      <div class="filter-pill">🥭 Medium <span class="chevron">↻</span></div>
+      <p class="spec">h 48 · icon + label + cycle glyph · slice/click cycles value</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Settings</h2>
+    <div class="component-grid">
+      <div class="settings-chip">⚙</div>
+      <div class="settings-drawer">
+        <h3>Settings</h3>
+        <div class="settings-row"><span>Music</span><input type="range" /></div>
+        <div class="settings-row"><span>SFX</span><input type="range" /></div>
+        <div class="settings-row"><span>Sensitivity</span><input type="range" /></div>
+        <div class="settings-row"><span>Mirror camera</span><input type="checkbox" checked /></div>
+        <div class="settings-row"><span>Calm background</span><input type="checkbox" /></div>
+      </div>
+      <p class="spec">Chip 44px · Drawer 280px wide · radius/md</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Buttons</h2>
+    <div class="component-grid">
+      <button class="btn-primary">Play Again</button>
+      <button class="btn-secondary">Leaderboard</button>
+      <button class="btn-ghost">Menu</button>
+      <p class="spec">Primary: gradient coral→banana h 52 · Secondary: glass · Ghost: text only</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Leaderboard Row</h2>
+    <div class="glass-panel" style="width:320px;padding:0;overflow:hidden;">
+      <div class="lb-row gold">1 · Alex · 24,500</div>
+      <div class="lb-row gold">2 · Sam · 21,200</div>
+      <div class="lb-row you">4 · You · 18,400</div>
+      <div class="lb-row">5 · Jordan · 16,100</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Hand-Lost Pill</h2>
+    <div class="hud-chip" style="margin:0 auto;">👻 Show your hand</div>
+  </div>
+
+  <div class="section">
+    <h2>Milestone Banner</h2>
+    <div style="display:inline-block;padding:12px 24px;border-radius:var(--radius-pill);background:var(--purple-900-glass);border:1.5px solid var(--border-glass);font-family:var(--font-display);font-size:24px;">Amazing!</div>
+    <p class="spec">Enter: scale 0.8→1 + fade 240ms</p>
+  </div>
+
+  <p style="margin-top:48px;"><a href="index.html" style="color:var(--yellow-400);">← Back to hub</a></p>
+</body>
+</html>

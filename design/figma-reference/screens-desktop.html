@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Blade — Desktop Screens</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    .screen-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; padding: 32px; }
+    .center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; }
+    .boot-logo { width: 240px; margin-bottom: 24px; }
+    .boot-tip { font-size: 15px; color: rgba(255,250,245,0.75); margin-bottom: 24px; }
+    .boot-progress { width: 280px; height: 8px; background: rgba(0,0,0,0.35); border-radius: 4px; overflow: hidden; }
+    .boot-progress-fill { width: 65%; height: 100%; background: linear-gradient(90deg, var(--green-400), var(--yellow-400)); border-radius: 4px; }
+    .best-chip { position: absolute; top: 88px; left: 50%; transform: translateX(-50%); font-size: 13px; color: rgba(255,250,245,0.62); background: var(--purple-900-glass); border: 1.5px solid var(--border-glass); padding: 6px 14px; border-radius: var(--radius-pill); }
+    .menu-stack { width: 100%; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+    .fruit-row { display: flex; justify-content: center; gap: 80px; align-items: flex-start; }
+    .play-row { display: flex; justify-content: center; align-items: center; gap: 48px; margin-top: 8px; }
+    .hud-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .hud-left, .hud-right { display: flex; flex-direction: column; gap: 8px; }
+    .overlay-card { max-width: 340px; width: 100%; margin: auto; text-align: center; }
+    .overlay-card h2 { font-family: var(--font-display); font-size: 24px; margin: 12px 0 8px; }
+    .overlay-card p { color: rgba(255,250,245,0.65); margin-bottom: 24px; font-size: 15px; }
+    .card-actions { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .score-big { font-family: var(--font-display); font-size: 56px; font-weight: 600; color: var(--yellow-400); font-variant-numeric: tabular-nums; }
+    .score-delta { color: var(--green-400); font-size: 15px; margin: 8px 0 16px; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: left; font-size: 14px; margin-bottom: 24px; }
+    .stats-grid span { color: rgba(255,250,245,0.55); }
+    .lb-layout { flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 900px; margin: 0 auto; width: 100%; }
+    .lb-list { flex: 1; overflow: hidden; }
+    .lb-filters { display: flex; gap: 12px; justify-content: center; }
+    .error-card { max-width: 400px; padding: 32px; text-align: center; }
+    .error-card h2 { font-family: var(--font-display); font-size: 24px; margin: 16px 0 8px; }
+    .cal-status { font-size: 13px; color: rgba(255,250,245,0.75); margin-top: 12px; }
+    .gear { position: absolute; bottom: 32px; right: 32px; z-index: 2; }
+    .back-fruit { position: absolute; bottom: 32px; left: 32px; z-index: 2; }
+    .hand-pill { position: absolute; top: 40%; left: 50%; transform: translate(-50%,-50%); z-index: 3; }
+    .onboard-card { max-width: 420px; padding: 28px; text-align: center; }
+    .onboard-card h2 { font-family: var(--font-display); font-size: 24px; margin-bottom: 12px; }
+    .onboard-card p { font-size: 15px; color: rgba(255,250,245,0.7); line-height: 1.5; margin-bottom: 8px; }
+    .onboard-card .privacy { font-size: 13px; color: rgba(255,250,245,0.45); margin-bottom: 20px; }
+    .practice-hint { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); font-size: 15px; color: rgba(255,250,245,0.75); z-index: 2; }
+    .watermelon-practice { position: absolute; top: 45%; left: 60%; width: 96px; animation: bob 2.4s ease-in-out infinite; z-index: 2; }
+  </style>
+</head>
+<body class="gallery">
+  <h1 style="font-family:var(--font-display);font-size:32px;">Desktop Screens — 1280×720</h1>
+  <p style="color:rgba(255,250,245,0.6);margin-bottom:32px;">Paste each frame into Figma page "Screens — Desktop (1280×720)"</p>
+
+  <!-- 01 Boot -->
+  <p class="frame-label">01 Boot</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="screen-inner center" style="background:var(--purple-900);">
+      <img class="boot-logo" src="../../assets/ui/logo.svg" alt="Fruit Blade" />
+      <p class="boot-tip">Slice fast — slow hovers don't count</p>
+      <div class="boot-progress"><div class="boot-progress-fill"></div></div>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,250,245,0.55);">Loading fruits…</p>
+    </div>
+  </div>
+
+  <p class="frame-label">01 Boot — Failure variant</p>
+  <div class="frame frame-desktop">
+    <div class="screen-inner center" style="background:var(--purple-900);">
+      <img class="boot-logo" src="../../assets/ui/logo.svg" alt="Fruit Blade" />
+      <p class="boot-tip">Taking longer than usual… check connection</p>
+      <button class="btn-primary" style="margin-top:16px;">Retry</button>
+    </div>
+  </div>
+
+  <!-- 02 Onboarding -->
+  <p class="frame-label">02 Onboarding — Step 1 Camera</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner center">
+      <div class="glass-panel onboard-card">
+        <div style="font-size:48px;margin-bottom:12px;">📷</div>
+        <h2>Enable your camera</h2>
+        <p>Fruit Blade uses your webcam to track hand slices. Your video never leaves the device.</p>
+        <p class="privacy">Processed locally in your browser</p>
+        <button class="btn-primary">Enable Camera</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="frame-label">02 Onboarding — Step 2 Calibration</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner center">
+      <div class="progress-ring" style="margin-bottom:16px;">
+        <svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="38" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="8"/><circle cx="44" cy="44" r="38" fill="none" stroke="url(#rg2)" stroke-width="8" stroke-dasharray="140 239" stroke-linecap="round"/><defs><linearGradient id="rg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a8e06c"/><stop offset="100%" stop-color="#ffe566"/></linearGradient></defs></svg>
+        <div class="icon">✋</div>
+      </div>
+      <p class="wordmark" style="font-size:32px;margin-bottom:8px;">Hold your hand steady</p>
+      <p class="cal-status">Tracking ✓ · 72%</p>
+    </div>
+  </div>
+
+  <p class="frame-label">02 Onboarding — Step 3 Practice slice</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <img class="watermelon-practice" src="../../assets/fruits/watermelon.svg" alt="" />
+    <p class="practice-hint">Swipe fast through the fruit to continue</p>
+  </div>
+
+  <!-- 03 Main Menu merged -->
+  <p class="frame-label">03 Main Menu (merged)</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner">
+      <div style="text-align:center;margin-bottom:8px;"><span class="wordmark">Fruit Blade</span></div>
+      <div class="best-chip">Best: 18,400</div>
+      <div class="menu-stack" style="margin-top:48px;">
+        <div class="glass-panel">
+          <div class="panel-label">Choose mode</div>
+          <div class="fruit-row">
+            <div class="menu-fruit large selected"><img src="../../assets/fruits/apple.svg" alt="" /><span class="label">Classic</span><span class="sublabel">3 strikes</span></div>
+            <div class="menu-fruit large"><img src="../../assets/fruits/orange.svg" alt="" /><span class="label">Arcade</span><span class="sublabel">60 seconds</span></div>
+            <div class="menu-fruit large"><img src="../../assets/fruits/peach.svg" alt="" /><span class="label">Zen</span><span class="sublabel">No pressure</span></div>
+          </div>
+        </div>
+        <div class="glass-panel">
+          <div class="panel-label">Difficulty</div>
+          <div class="fruit-row">
+            <div class="menu-fruit compact"><img src="../../assets/fruits/strawberry.svg" alt="" /><span class="label">Easy</span></div>
+            <div class="menu-fruit compact selected"><img src="../../assets/fruits/mango.svg" alt="" /><span class="label">Medium</span></div>
+            <div class="menu-fruit compact"><img src="../../assets/fruits/watermelon.svg" alt="" /><span class="label">Hard</span></div>
+            <div class="menu-fruit compact"><img src="../../assets/fruits/pineapple.svg" alt="" /><span class="label">Scores</span></div>
+          </div>
+        </div>
+        <div class="play-row">
+          <div class="menu-fruit large"><img src="../../assets/fruits/banana.svg" alt="" /><span class="label">PLAY</span></div>
+        </div>
+      </div>
+      <div class="progress-ring" style="position:absolute;top:100px;left:50%;transform:translateX(-50%);">
+        <svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="38" fill="none" stroke="#a8e06c" stroke-width="8"/></svg>
+        <div class="icon" style="color:var(--green-400);">✓</div>
+      </div>
+      <div class="gear settings-chip">⚙</div>
+    </div>
+  </div>
+
+  <!-- 05 Gameplay HUD -->
+  <p class="frame-label">05 Gameplay HUD</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="screen-inner" style="padding:24px;">
+      <div class="hud-top">
+        <div class="hud-left">
+          <div class="hud-chip">⭐ <span style="font-variant-numeric:tabular-nums;">12,450</span></div>
+          <div class="hud-chip" style="color:var(--green-400);">×3</div>
+        </div>
+        <div class="hud-right">
+          <div class="hud-chip">❤️ ❤️ ❤️</div>
+          <div class="hud-chip">⏱ 0:42</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="frame-label">05 Gameplay HUD — Timer urgent</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="screen-inner" style="padding:24px;">
+      <div class="hud-top">
+        <div class="hud-left"><div class="hud-chip">⭐ 12,450</div></div>
+        <div class="hud-right"><div class="hud-chip urgent">⏱ 0:08</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="frame-label">05 Gameplay HUD — Hand lost</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="hand-pill hud-chip">👻 Show your hand</div>
+  </div>
+
+  <!-- 06 Pause -->
+  <p class="frame-label">06 Pause (HTML)</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim scrim-pause"></div>
+    <div class="screen-inner center">
+      <div class="glass-panel overlay-card">
+        <div style="font-size:28px;">⏸</div>
+        <h2>Paused</h2>
+        <p>Take a breather — resume when ready</p>
+        <div class="card-actions">
+          <button class="btn-primary" style="width:100%;">Resume</button>
+          <button class="btn-secondary" style="width:100%;">Restart</button>
+          <button class="btn-ghost" style="width:100%;">Menu</button>
+        </div>
+      </div>
+      <div class="gear settings-chip" style="position:absolute;bottom:32px;right:32px;">⚙</div>
+    </div>
+  </div>
+
+  <!-- 07 Game Over -->
+  <p class="frame-label">07 Game Over (HTML)</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim scrim-pause"></div>
+    <div class="screen-inner center">
+      <div class="glass-panel overlay-card" style="max-width:380px;">
+        <p style="color:var(--green-400);font-weight:700;font-size:14px;">New High Score!</p>
+        <h2>Game Over</h2>
+        <p style="font-size:13px;color:rgba(255,250,245,0.55);">Score</p>
+        <div class="score-big">18,400</div>
+        <p class="score-delta">+120 over your best!</p>
+        <div class="stats-grid">
+          <div><span>Mode</span><br><strong>Classic</strong></div>
+          <div><span>Difficulty</span><br><strong>Medium</strong></div>
+          <div><span>Longest combo</span><br><strong>×12</strong></div>
+          <div><span>Wave</span><br><strong>8</strong></div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-primary" style="width:100%;">Play Again</button>
+          <button class="btn-secondary" style="width:100%;">Leaderboard</button>
+          <button class="btn-ghost" style="width:100%;">Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 Leaderboard -->
+  <p class="frame-label">08 Leaderboard</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner">
+      <div style="text-align:center;margin-bottom:24px;"><span class="wordmark" style="font-size:32px;">Leaderboard</span></div>
+      <div class="lb-layout">
+        <div class="glass-panel lb-list" style="padding:0;">
+          <div class="panel-label" style="padding:16px 16px 0;">High scores</div>
+          <div class="lb-row gold">1 · Alex · 24,500</div>
+          <div class="lb-row gold">2 · Sam · 21,200</div>
+          <div class="lb-row gold">3 · Riley · 19,800</div>
+          <div class="lb-row you">4 · You · 18,400</div>
+          <div class="lb-row">5 · Jordan · 16,100</div>
+          <div class="lb-row">6 · Casey · 15,900</div>
+          <div class="lb-row">7 · Morgan · 14,200</div>
+          <div class="lb-row">8 · Taylor · 13,800</div>
+        </div>
+        <div class="lb-filters">
+          <div class="filter-pill">🍎 Classic <span class="chevron">↻</span></div>
+          <div class="filter-pill">🥭 Medium <span class="chevron">↻</span></div>
+        </div>
+      </div>
+      <div class="back-fruit menu-fruit compact"><img src="../../assets/fruits/coconut.svg" alt="" width="72" height="72" /><span class="label">Back</span></div>
+    </div>
+  </div>
+
+  <!-- 09 Error states -->
+  <p class="frame-label">09 Error — Camera denied</p>
+  <div class="frame frame-desktop">
+    <div class="scrim scrim-pause"></div>
+    <div class="screen-inner center">
+      <div class="glass-panel error-card">
+        <div style="font-size:48px;">📷🚫</div>
+        <h2>Camera access needed</h2>
+        <p style="font-size:15px;color:rgba(255,250,245,0.65);margin-bottom:20px;">Enable camera in browser settings, or play with your mouse instead.</p>
+        <button class="btn-primary" style="margin-bottom:12px;width:100%;">Try again</button>
+        <button class="btn-secondary" style="width:100%;">Play with mouse</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="frame-label">09 Error — Model loading</p>
+  <div class="frame frame-desktop">
+    <div class="webcam-bg"></div>
+    <div class="scrim"></div>
+    <div class="screen-inner center">
+      <div class="progress-ring"><svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="38" fill="none" stroke="rgba(255,250,245,0.2)" stroke-width="8" stroke-dasharray="60 239"/></svg><div class="icon">✋</div></div>
+      <p class="cal-status" style="margin-top:16px;">Loading hand tracking…</p>
+    </div>
+  </div>
+
+  <p class="frame-label">09 Error — Offline</p>
+  <div class="frame frame-desktop">
+    <div class="screen-inner center" style="background:var(--purple-900);">
+      <img class="boot-logo" src="../../assets/ui/logo.svg" alt="" />
+      <p class="boot-tip">Can't reach the server. Check your connection.</p>
+      <button class="btn-primary">Retry</button>
+    </div>
+  </div>
+
+  <p class="frame-label">09 Error — Portrait prompt</p>
+  <div class="frame frame-desktop">
+    <div class="scrim scrim-pause"></div>
+    <div class="screen-inner center">
+      <div class="glass-panel error-card">
+        <div style="font-size:48px;">📱↻</div>
+        <h2>Rotate for best experience</h2>
+        <p style="font-size:15px;color:rgba(255,250,245,0.65);">Landscape works best for slicing. You can continue in portrait with smaller targets.</p>
+        <button class="btn-secondary" style="margin-top:16px;">Continue anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:48px;"><a href="index.html" style="color:var(--yellow-400);">← Back to hub</a></p>
+</body>
+</html>

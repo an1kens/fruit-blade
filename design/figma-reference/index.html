@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Blade — Figma Reference Hub</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    .hub { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+    .hub h1 { font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; }
+    .hub p { color: rgba(255,250,245,0.65); line-height: 1.6; margin-bottom: 24px; }
+    .hub a {
+      display: block;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      background: var(--purple-900-glass);
+      border: 1.5px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      color: var(--cream-100);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .hub a:hover { border-color: var(--yellow-400); }
+    .hub a span { display: block; font-size: 13px; font-weight: 400; color: rgba(255,250,245,0.55); margin-top: 4px; }
+    .figma-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--yellow-400);
+    }
+    code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="hub">
+    <h1>Fruit Blade — Manual Figma Reference</h1>
+    <p>
+      Figma MCP is rate-limited on Starter. Use these pixel-accurate HTML frames to build components and screens in
+      <a class="figma-link" href="https://www.figma.com/design/4pFddXw7Zg2wrwCoy66w2h">Fruit Blade — Design System</a>.
+      Open each page, screenshot at 1× (or trace), paste into the matching Figma page.
+    </p>
+    <p><strong>Import workflow:</strong> Open frame → Cmd+Shift+4 (macOS) or browser screenshot → Paste into Figma → Trace with auto-layout + bind variables from Foundations.</p>
+
+    <a href="components.html">Components library <span>Scrim, Glass Panel, Menu Fruit, HUD Chip, Progress Ring, Settings, Filter Pill</span></a>
+    <a href="screens-desktop.html">Desktop screens (1280×720) <span>Boot, Onboarding ×3, Main Menu, HUD, Pause, Game Over, Leaderboard, Errors ×5</span></a>
+    <a href="screens-mobile.html">Mobile screens (390×844) <span>Main Menu, HUD, Portrait prompt</span></a>
+    <a href="motion-spec.html">Motion spec <span>Bob, pulse, banner entrance, respawn notes</span></a>
+
+    <p style="margin-top:32px;font-size:13px;">
+      Figma file key: <code>4pFddXw7Zg2wrwCoy66w2h</code> · Tokens already in Foundations page
+    </p>
+  </div>
+</body>
+</html>

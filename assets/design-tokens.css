@@ -1,0 +1,102 @@
+/**
+ * Fruit Blade — cute cohesive design tokens
+ */
+:root {
+  /* Core candy palette — saturated & juicy, still flat */
+  --fb-coral: #ff4757;
+  --fb-peach: #ff8a65;
+  --fb-berry: #f50057;
+  --fb-mango: #ffb300;
+  --fb-banana: #ffeb3b;
+  --fb-citrus: #ff9800;
+  --fb-melon: #ff5252;
+  --fb-pine: #ffb300;
+  --fb-kiwi: #7cb342;
+  --fb-coconut: #8d6e63;
+
+  --fb-leaf: #7cb87a;
+  --fb-stem: #8b7355;
+  --fb-outline: #6b5344;
+
+  /* Primitives */
+  --fb-purple-900: #2a2640;
+  --fb-purple-900-glass: rgba(42, 38, 64, 0.78);
+  --fb-cream-100: #fffaf5;
+  --fb-yellow-400: #ffe566;
+  --fb-green-400: #a8e06c;
+  --fb-red-400: #ff6b6b;
+  --fb-coral-500: #ff4757;
+  --fb-banana-300: #ffeb3b;
+  --fb-scrim-heavy: rgba(20, 18, 32, 0.72);
+  --fb-border-glass: rgba(255, 250, 245, 0.14);
+
+  /* Semantic aliases */
+  --fb-surface-page: var(--fb-purple-900);
+  --fb-surface-panel: rgba(255, 250, 245, 0.07);
+  --fb-surface-scrim: var(--fb-scrim-heavy);
+  --fb-text-primary: var(--fb-cream-100);
+  --fb-text-accent: var(--fb-yellow-400);
+  --fb-feedback-success: var(--fb-green-400);
+  --fb-feedback-danger: var(--fb-red-400);
+  --fb-cta-gradient-start: var(--fb-banana-300);
+  --fb-cta-gradient-end: var(--fb-coral-500);
+  --fb-border-panel: var(--fb-border-glass);
+
+  /* HUD (legacy aliases — keep for styles.css) */
+  --fb-hud-primary: var(--fb-text-primary);
+  --fb-hud-accent: var(--fb-text-accent);
+  --fb-hud-success: var(--fb-feedback-success);
+  --fb-hud-danger: var(--fb-feedback-danger);
+  --fb-hud-muted: rgba(255, 250, 245, 0.62);
+
+  /* Surfaces — soft lavender night */
+  --fb-surface-dark: var(--fb-surface-page);
+  --fb-surface-card: var(--fb-surface-panel);
+  --fb-surface-glass: var(--fb-purple-900-glass);
+
+  /* Typography */
+  --fb-font-display: "Fredoka", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --fb-font-body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --fb-text-display-lg: 2.5rem;
+  --fb-text-display-md: 1.75rem;
+  --fb-text-body: 1rem;
+  --fb-text-caption: 0.8125rem;
+  --fb-text-label: 0.8125rem;   /* 13px */
+  --fb-text-sublabel: 0.875rem; /* 14px */
+
+  /* Type scale (px) */
+  --fb-type-12: 12px;
+  --fb-type-13: 13px;
+  --fb-type-15: 15px;
+  --fb-type-18: 18px;
+  --fb-type-24: 24px;
+  --fb-type-40: 40px;
+  --fb-type-56: 56px;
+
+  /* Spacing scale */
+  --fb-space-1: 4px;
+  --fb-space-2: 8px;
+  --fb-space-3: 12px;
+  --fb-space-4: 16px;
+  --fb-space-5: 20px;
+  --fb-space-6: 24px;
+  --fb-space-7: 28px;
+  --fb-space-8: 32px;
+
+  /* Legacy spacing aliases */
+  --fb-space-xs: var(--fb-space-1);
+  --fb-space-sm: var(--fb-space-2);
+  --fb-space-md: var(--fb-space-4);
+  --fb-space-lg: var(--fb-space-6);
+  --fb-space-xl: var(--fb-space-8);
+
+  /* Radii — rounder = cuter */
+  --fb-radius-sm: 12px;
+  --fb-radius-md: 20px;
+  --fb-radius-lg: 28px;
+  --fb-radius-pill: 999px;
+
+  --fb-webcam-dim: 0.12;
+  --fb-webcam-vignette: 0.35;
+  --fb-sprite-size: 128px;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Blade — Motion Spec</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 14px; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-glass); }
+    th { color: rgba(255,250,245,0.55); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .demo-bob { width: 72px; height: 72px; animation: bob 2.4s ease-in-out infinite; }
+    .demo-pulse { animation: pulse 0.6s ease-in-out infinite alternate; display: inline-block; }
+    .demo-banner { animation: bannerIn 240ms ease-out forwards; display: inline-block; }
+    @keyframes bannerIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    .mood { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+    .mood-card { padding: 16px; background: var(--purple-900-glass); border: 1.5px solid var(--border-glass); border-radius: var(--radius-md); font-size: 13px; }
+    .mood-card strong { display: block; margin-bottom: 4px; color: var(--yellow-400); }
+  </style>
+</head>
+<body class="gallery" style="max-width:900px;">
+  <h1 style="font-family:var(--font-display);font-size:32px;">Motion Spec</h1>
+  <p style="color:rgba(255,250,245,0.6);margin-bottom:32px;">Smart Animate notes for Figma prototypes. Respect <code>prefers-reduced-motion</code> — disable decorative motion, keep functional fades.</p>
+
+  <h2 style="font-family:var(--font-display);font-size:24px;margin-top:32px;">Animations</h2>
+  <table>
+    <thead><tr><th>Element</th><th>Property</th><th>Values</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Menu Fruit bob <img class="demo-bob" src="../../assets/fruits/apple.svg" alt="" style="vertical-align:middle;margin-left:8px;" /></td>
+        <td>translateY</td>
+        <td>±6px · 2.4s · ease-in-out · infinite</td>
+        <td>All menu fruits. Off when reduced-motion.</td>
+      </tr>
+      <tr>
+        <td>HUD Chip urgent <span class="demo-pulse hud-chip urgent" style="margin-left:8px;">⏱ 0:08</span></td>
+        <td>scale</td>
+        <td>1 → 1.06 · 0.6s · alternate · infinite</td>
+        <td>Timer &lt;10s only. Pair with danger color.</td>
+      </tr>
+      <tr>
+        <td>Milestone banner <span class="demo-banner" style="margin-left:8px;padding:8px 16px;background:var(--purple-900-glass);border-radius:999px;font-family:var(--font-display);">Amazing!</span></td>
+        <td>scale + opacity</td>
+        <td>0.8→1 scale · fade in · 240ms ease-out</td>
+        <td>Combo · Great · Amazing · Blade Master</td>
+      </tr>
+      <tr>
+        <td>Menu fruit sliced</td>
+        <td>opacity + split</td>
+        <td>Split sprite · 700ms respawn fade</td>
+        <td>Sliceable target feedback</td>
+      </tr>
+      <tr>
+        <td>Hand-lost pill</td>
+        <td>opacity</td>
+        <td>fade in 200ms</td>
+        <td>After 2s no hand detected</td>
+      </tr>
+      <tr>
+        <td>Primary button hover</td>
+        <td>translateY</td>
+        <td>lift 2px</td>
+        <td>HTML overlays only</td>
+      </tr>
+      <tr>
+        <td>Selection ring</td>
+        <td>stroke + glow</td>
+        <td>4px yellow · effect/selection-glow</td>
+        <td>Not color-only — ring + scale on select</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="font-family:var(--font-display);font-size:24px;">Mood board references</h2>
+  <div class="mood">
+    <div class="mood-card"><strong>Fruit Ninja VR/2</strong>Juicy feedback, chunky menu targets, saturated fruits on dark bg</div>
+    <div class="mood-card"><strong>Just Dance</strong>Camera onboarding, "stand here / show hand" coaching, live feed + scrim</div>
+    <div class="mood-card"><strong>Beat Saber tutorial</strong>Single safe practice object, velocity-gated gesture teaching</div>
+    <div class="mood-card"><strong>Alto's Odyssey</strong>Restrained menus, generous spacing, few targets per screen</div>
+  </div>
+
+  <h2 style="font-family:var(--font-display);font-size:24px;margin-top:40px;">Design direction</h2>
+  <p style="line-height:1.7;color:rgba(255,250,245,0.75);margin-top:12px;">
+    <strong style="color:var(--cream-100);">Mood:</strong> "Candy arcade at night" — playful saturated foreground (fruits, accents) on calm lavender-night backdrop.
+    Webcam feed is part of the brand but always behind scrim on menus. One accent (#ffe566) for selected/important.
+    Gesture targets ≥88px sprites, ≥140px center spacing. Fredoka display + Nunito Sans UI.
+  </p>
+
+  <p style="margin-top:48px;"><a href="index.html" style="color:var(--yellow-400);">← Back to hub</a></p>
+</body>
+</html>

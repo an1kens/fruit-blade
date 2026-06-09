@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="pineapple">
+  <defs><linearGradient id="g" x1="30%" y1="15%" x2="70%" y2="95%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient></defs>
+  <g>
+      <ellipse cx="64" cy="74" rx="32" ry="36" fill="url(#g)" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <ellipse cx="68" cy="82" rx="14" ry="10" fill="#FF8F00" opacity="0.32"/>
+      <path d="M42 40 L50 24 L58 40 Z" fill="#5FD068" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M54 38 L64 20 L74 38 Z" fill="#5FD068" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M66 40 L74 24 L82 40 Z" fill="#5FD068" stroke="#5D4037" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="50" cy="60" r="8" fill="rgba(255,255,255,0.82)"/>
+   <circle cx="56" cy="65" r="2.56" fill="rgba(255,255,255,0.5)"/></g>
+</svg>

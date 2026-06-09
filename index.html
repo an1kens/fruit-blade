@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fruit Ninja-style browser game controlled by webcam hand tracking" />
+  <title>Fruit Blade — Webcam Ninja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=9" />
+</head>
+<body>
+  <div id="app">
+    <!-- Boot loader -->
+    <div id="boot-loader" class="boot-loader" aria-live="polite">
+      <div class="boot-loader-card">
+        <img src="assets/ui/logo.svg" alt="Fruit Blade" class="boot-logo" width="240" height="60" />
+        <p id="boot-status" class="boot-status">Loading fruits…</p>
+        <div class="progress-bar boot-progress">
+          <div id="boot-progress-fill" class="progress-fill"></div>
+        </div>
+        <button id="btn-boot-retry" class="btn btn-secondary hidden" data-sliceable="boot-retry">Retry</button>
+      </div>
+    </div>
+
+    <!-- Onboarding step 1: camera permission -->
+    <div id="onboarding-camera" class="overlay hidden">
+      <div class="overlay-card onboarding-card">
+        <h2>Enable your camera</h2>
+        <p class="card-subtitle">Fruit Blade uses your webcam to track hand slices. Nothing is recorded or uploaded.</p>
+        <button id="btn-enable-camera" class="btn btn-primary btn-lg" data-sliceable="enable-camera">Allow Camera</button>
+        <button id="btn-skip-camera" class="btn btn-ghost" data-sliceable="skip-camera">Use mouse instead</button>
+      </div>
+    </div>
+
+    <!-- Error: camera denied -->
+    <div id="error-camera" class="overlay hidden">
+      <div class="overlay-card error-card">
+        <h2>Camera blocked</h2>
+        <p class="card-subtitle">Allow camera access in your browser settings, or use mouse slicing below.</p>
+        <button id="btn-retry-camera" class="btn btn-primary" data-sliceable="retry-camera">Try Again</button>
+        <button id="btn-mouse-fallback" class="btn btn-secondary" data-sliceable="mouse-fallback">Use Mouse</button>
+      </div>
+    </div>
+
+    <!-- Portrait prompt -->
+    <div id="portrait-prompt" class="portrait-prompt hidden" role="alert">
+      <p>Rotate to landscape for the best experience</p>
+    </div>
+
+    <video id="webcam" autoplay playsinline muted></video>
+
+    <section id="screen-menu" class="screen active">
+      <canvas id="game-canvas" tabindex="0" aria-label="Fruit Blade game canvas"></canvas>
+      <div id="live-score" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+      <button id="btn-pause" class="btn-pause hidden" aria-label="Pause">
+        <img src="assets/icons/pause.svg" alt="" width="22" height="22" />
+      </button>
+      <button id="btn-settings" class="btn-settings" aria-label="Settings" aria-expanded="false" aria-controls="settings-drawer">
+        <img src="assets/icons/settings.svg" alt="" width="22" height="22" />
+      </button>
+      <aside id="settings-drawer" class="settings-drawer" aria-hidden="true">
+        <h3 class="settings-title">Settings</h3>
+        <label class="settings-row">
+          <span>Sensitivity</span>
+          <input type="range" id="setting-sensitivity" min="0.5" max="1.5" step="0.05" value="1" />
+        </label>
+        <label class="settings-row toggle-row">
+          <span>Mirror camera</span>
+          <input type="checkbox" id="setting-mirror" checked />
+        </label>
+        <label class="settings-row toggle-row">
+          <span>Calm background</span>
+          <input type="checkbox" id="setting-calm-bg" />
+        </label>
+        <label class="settings-row toggle-row">
+          <span>Smooth performance</span>
+          <input type="checkbox" id="setting-performance" checked />
+        </label>
+        <p class="settings-hint">Smooth performance throttles hand tracking. Calm background hides the live camera feed.</p>
+        <div class="volume-controls settings-volume">
+          <label title="Music volume">
+            <img src="assets/icons/music.svg" alt="" width="18" height="18" />
+            <span class="sr-only">Music</span>
+            <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.35" />
+          </label>
+          <label title="SFX volume">
+            <img src="assets/icons/sfx.svg" alt="" width="18" height="18" />
+            <span class="sr-only">SFX</span>
+            <input type="range" id="sfx-volume" min="0" max="1" step="0.05" value="0.7" />
+          </label>
+        </div>
+      </aside>
+    </section>
+
+    <section id="screen-game" class="screen"></section>
+
+    <div id="pause-menu" class="overlay">
+      <div class="overlay-card pause-card">
+        <div class="card-header">
+          <img src="assets/icons/pause.svg" alt="" class="card-icon" width="28" height="28" />
+          <h2>Paused</h2>
+        </div>
+        <p class="card-subtitle">Take a breather — resume when ready</p>
+        <div class="card-actions">
+          <button id="btn-resume" class="btn btn-primary" data-sliceable="resume">Resume</button>
+          <button id="btn-restart" class="btn btn-secondary" data-sliceable="restart">Restart</button>
+          <button id="btn-home-pause" class="btn btn-ghost" data-sliceable="home">Menu</button>
+        </div>
+        <div class="volume-controls pause-volume">
+          <label class="volume-row">
+            <span class="volume-label"><img src="assets/icons/music.svg" alt="" width="16" height="16" /> Music</span>
+            <input type="range" id="pause-music-volume" min="0" max="1" step="0.05" value="0.35" />
+          </label>
+          <label class="volume-row">
+            <span class="volume-label"><img src="assets/icons/sfx.svg" alt="" width="16" height="16" /> SFX</span>
+            <input type="range" id="pause-sfx-volume" min="0" max="1" step="0.05" value="0.7" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <section id="screen-gameover" class="screen">
+      <div class="screen-content gameover-content">
+        <div class="gameover-card">
+          <div id="gameover-badge" class="badge hidden">
+            <span>New High Score!</span>
+          </div>
+          <h2 class="gameover-title">Game Over</h2>
+          <p id="gameover-reason" class="gameover-reason"></p>
+          <div class="stats-card">
+            <div class="final-score">
+              <span class="label">Score</span>
+              <span id="gameover-score" class="value">0</span>
+            </div>
+            <div id="gameover-details" class="details"></div>
+          </div>
+          <div class="gameover-actions">
+            <button id="btn-play-again" class="btn btn-primary btn-lg" data-sliceable="play-again">Play Again</button>
+            <button id="btn-leaderboard-gameover" class="btn btn-secondary" data-sliceable="leaderboard">Leaderboard</button>
+            <button id="btn-home-gameover" class="btn btn-ghost" data-sliceable="home">Menu</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/main.js?v=10"></script>
+</body>
+</html>
