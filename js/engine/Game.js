@@ -79,6 +79,8 @@ export class Game {
     this.usePointerFallback = false;
     this.bootFailed = false;
     this._resizeRaf = null;
+    this.menuSelectLocked = false;
+    this._lastLbCycleAt = 0;
     this.applyUiSettings();
   }
 
@@ -94,34 +96,85 @@ export class Game {
     return this.ui.getSettings().performanceMode !== false;
   }
 
+  /** During menu calibration, always track both hands so either can complete the ring. */
+  getEffectiveMaxHands() {
+    if (
+      !this.usePointerFallback &&
+      !this.calibrated &&
+      this.state === GAME_STATES.MENU
+    ) {
+      return CONFIG.handTracking.maxHands;
+    }
+    if (this.isPerformanceMode()) return CONFIG.performance.maxHands;
+    return CONFIG.handTracking.maxHands;
+  }
+
   getHandModelComplexity() {
     if (this.isPerformanceMode()) return 0;
     return this.difficulty.modelComplexity ?? CONFIG.handTracking.modelComplexity;
   }
 
   async applyPerformanceProfile() {
-    if (this.usePointerFallback) {
+    if (!this.wantsCameraFeed()) {
       this.releaseHandTracking();
+      this.scheduleResize();
       return;
     }
 
-    this.handTracker.maxHands = this.isPerformanceMode()
-      ? CONFIG.performance.maxHands
-      : CONFIG.handTracking.maxHands;
+    await this.ensureCamera();
 
-    if (this.handTracker.running || this.handTracker.landmarker) {
+    if (this.usePointerFallback) {
+      try {
+        this.handTracker.landmarker?.close?.();
+      } catch { /* ignore */ }
+      this.handTracker.landmarker = null;
+      this.scheduleResize();
+      return;
+    }
+
+    this.handTracker.maxHands = this.getEffectiveMaxHands();
+
+    if (this.handTracker.landmarker) {
       await this.syncHandTrackingProfile();
+    } else if (!this.usePointerFallback && this.wantsCameraFeed()) {
+      await this.ensureHandTracking();
     }
     this.scheduleResize();
   }
 
-  releaseHandTracking() {
+  stopHandModel() {
     try {
       this.handTracker.landmarker?.close?.();
     } catch { /* ignore */ }
     this.handTracker.landmarker = null;
+  }
+
+  releaseHandTracking() {
+    this.stopHandModel();
     this.handTracker.stop();
     this.cameraReady = false;
+  }
+
+  async ensureCamera() {
+    if (!this.wantsCameraFeed()) return;
+
+    try {
+      if (!this.handTracker.running) {
+        await this.handTracker.startCamera(this.video);
+      } else if (
+        this.video.videoWidth > 0 &&
+        this.video.videoWidth < CONFIG.handTracking.cameraMinWidth + 80
+      ) {
+        this.handTracker.stop();
+        await this.handTracker.startCamera(this.video);
+      }
+      this.cameraReady = true;
+    } catch (err) {
+      this.cameraReady = false;
+      this.calibrationStatus = `Camera error: ${err.message}`;
+      this.ui.showCameraError(true);
+      console.error(err);
+    }
   }
 
   shouldRunHandTracking() {
@@ -224,6 +277,7 @@ export class Game {
     if (wasCalibrating && this.state === GAME_STATES.MENU && this.menuManager.getStep() === 'main') {
       this.rebuildMenuLayout('main');
     }
+    void this.applyPerformanceProfile();
   }
 
   restoreInputMode() {
@@ -254,7 +308,8 @@ export class Game {
     this.ui.showOnboardingCamera(false);
     this.ui.showCameraError(false);
     if (!this.tutorial.done) this.tutorial.complete();
-    this.releaseHandTracking();
+    this.stopHandModel();
+    if (this.wantsCameraFeed()) void this.ensureCamera();
     this.markReadyToPlay();
     void this.startMenu();
   }
@@ -364,8 +419,13 @@ export class Game {
     return this.state === GAME_STATES.MENU;
   }
 
+  wantsCameraFeed() {
+    return !this.ui.getSettings().calmBackground;
+  }
+
   useWebcamBackground() {
-    if (this.ui.getSettings().calmBackground) return false;
+    if (!this.wantsCameraFeed()) return false;
+    if (!this.handTracker.running || !this.video?.videoWidth) return false;
     return this.state === GAME_STATES.MENU || this.state === GAME_STATES.PLAYING;
   }
 
@@ -452,6 +512,9 @@ export class Game {
     this.startLoop();
     this.hideBootLoaderAfterFirstFrame();
 
+    if (this.wantsCameraFeed()) {
+      void this.ensureCamera();
+    }
     if (!this.usePointerFallback) {
       void this.ensureHandTracking();
     }
@@ -466,24 +529,16 @@ export class Game {
   }
 
   async ensureHandTracking() {
+    if (this.usePointerFallback) return;
+
     try {
-      if (!this.handTracker.running) {
-        await this.handTracker.startCamera(this.video);
-      } else if (
-        this.video.videoWidth > 0 &&
-        this.video.videoWidth < CONFIG.handTracking.cameraMinWidth + 80
-      ) {
-        // Upgrade old 640×480 sessions to the sharper default capture size
-        this.handTracker.stop();
-        await this.handTracker.startCamera(this.video);
-      }
+      await this.ensureCamera();
       if (!this.handTracker.landmarker) {
         this.calibrationStatus = 'Loading hand tracking...';
         await this.handTracker.loadModel();
       } else {
         await this.syncHandTrackingProfile();
       }
-      this.cameraReady = true;
       if (!this.calibrated) {
         this.calibrationStatus = 'Show your hand to calibrate';
       }
@@ -759,13 +814,22 @@ export class Game {
         this.calibrationStatus = 'Slice Back to return to menu';
       } else if (cal.handCount > 0) {
         const hint = cal.distanceHint ? `${cal.distanceHint} · ` : '';
-        this.calibrationStatus = `${hint}Hold steady (${Math.round(cal.progress * 100)}%)`;
+        const handsHint =
+          this.getEffectiveMaxHands() > 1 && cal.handCount === 1
+            ? 'One hand seen — both work · '
+            : this.getEffectiveMaxHands() > 1
+              ? `${cal.handCount} hands · `
+              : '';
+        this.calibrationStatus = `${handsHint}${hint}Hold steady (${Math.round(cal.progress * 100)}%)`;
       } else if (this.cameraReady) {
         this.calibrationStatus = 'Loading hand model…';
         if (!this.handTracker.landmarker) {
           this.calibrationStatus = 'Loading hand tracking…';
         } else {
-          this.calibrationStatus = 'Show your hand to calibrate';
+          this.calibrationStatus =
+            this.getEffectiveMaxHands() > 1
+              ? 'Show one or both hands in the ring'
+              : 'Show your hand in the ring';
         }
       }
     } else {
@@ -850,7 +914,13 @@ export class Game {
   processSliceableMenuSlices() {
     const trails = this.handTracker.getAllTrails();
     const threshold = this.getMenuSliceThreshold();
-    if (!this.handTracker.isSlicing(threshold)) return;
+    const isSlicing = this.handTracker.isSlicing(threshold);
+
+    if (!isSlicing) {
+      this.menuSelectLocked = false;
+      return;
+    }
+    if (this.menuSelectLocked) return;
 
     const entities = this.menuManager.getActiveFruits();
     if (!entities.length) return;
@@ -888,6 +958,14 @@ export class Game {
       this.menuManager.pulseSelection(menuFruit);
       return;
     }
+
+    if (menuFruit.action === 'lb-cycle-mode' || menuFruit.action === 'lb-cycle-diff') {
+      const now = performance.now();
+      if (now - this._lastLbCycleAt < 700) return;
+      this._lastLbCycleAt = now;
+    }
+
+    this.menuSelectLocked = true;
 
     this.menuManager.pulseSelection(menuFruit);
     this.particles.spawnJuice(menuFruit.x, menuFruit.y, menuFruit.def.juice, 0);
@@ -1022,6 +1100,14 @@ export class Game {
   refreshLeaderboardEntries() {
     const filter = this.menuManager.getLeaderboardFilter();
     const entries = this.highScores.getFiltered(filter.mode, filter.difficulty);
+    if (this.menuManager.getStep() === 'leaderboard' && this.menuManager.panels.length) {
+      this.menuManager.updateLeaderboardInPlace(
+        entries,
+        filter.mode,
+        filter.difficulty
+      );
+      return;
+    }
     this.menuManager.setLeaderboardEntries(entries);
     this.rebuildMenuLayout('leaderboard');
   }
@@ -1339,6 +1425,8 @@ export class Game {
       calibrationProgress: this.calibrationProgress,
       calibrationStatus: this.calibrationStatus,
       calibrated: this.calibrated,
+      trackingMaxHands: this.getEffectiveMaxHands(),
+      calibrationHandCount: this.handTracker.hands.length,
       bestScoreLabel: best.label,
       bestScore: best.score,
       video: this.video,

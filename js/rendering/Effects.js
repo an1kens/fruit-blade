@@ -135,7 +135,7 @@ export class Effects {
     if (mirror) {
       ctx.translate(width, 0);
       ctx.scale(-1, 1);
-      ctx.drawImage(video, -dx - dw, dy, dw, dh);
+      ctx.drawImage(video, dx, dy, dw, dh);
     } else {
       ctx.drawImage(video, dx, dy, dw, dh);
     }

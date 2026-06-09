@@ -21,7 +21,7 @@ export class HandTracker {
     this.calibrationStart = 0;
     this.handsDetectedDuringCalibration = false;
     this.modelComplexity = CONFIG.handTracking.modelComplexity;
-    this._cameraProfileKey = null;
+    this._modelProfileKey = null;
     this.lastBBoxRatio = 0;
     this.enablePointerFallback = false;
     this.pointerActive = false;
@@ -125,17 +125,19 @@ export class HandTracker {
     this.modelComplexity = complexity ?? CONFIG.handTracking.modelComplexity;
   }
 
+  runtimeProfileKey(complexity = this.modelComplexity, maxHands = this.maxHands) {
+    return `model-${complexity ?? CONFIG.handTracking.modelComplexity}-h${maxHands ?? CONFIG.handTracking.maxHands}`;
+  }
+
   profileKeyForComplexity(complexity) {
-    return `model-${complexity ?? CONFIG.handTracking.modelComplexity}`;
+    return this.runtimeProfileKey(complexity, this.maxHands);
   }
 
   async syncPerformanceProfile(modelComplexity) {
     const next = modelComplexity ?? CONFIG.handTracking.modelComplexity;
-    const prevComplexity = this.modelComplexity;
-    const prevKey = this._cameraProfileKey;
-    const profileKey = this.profileKeyForComplexity(next);
+    const profileKey = this.runtimeProfileKey(next, this.maxHands);
 
-    if (prevComplexity === next && this.landmarker && prevKey === profileKey) {
+    if (this.landmarker && this._modelProfileKey === profileKey && this.modelComplexity === next) {
       this.setModelComplexity(next);
       return this.getDetectionProfile();
     }
@@ -151,7 +153,7 @@ export class HandTracker {
       await this.loadModel();
     }
 
-    this._cameraProfileKey = this.profileKeyForComplexity(next);
+    this._modelProfileKey = profileKey;
     return updated;
   }
 
@@ -227,7 +229,6 @@ export class HandTracker {
     await this.video.play();
     this.running = true;
     this.lastFrameTime = performance.now();
-    this._cameraProfileKey = this.profileKeyForComplexity(this.modelComplexity);
   }
 
   async loadModel() {

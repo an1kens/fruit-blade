@@ -391,6 +391,12 @@ export class Renderer {
     ctx.textAlign = 'center';
     ctx.fillStyle = state.calibrated ? TOKENS.feedbackSuccess : 'rgba(255,250,245,0.75)';
     ctx.fillText(state.calibrationStatus || '', centerX, centerY + radius + 18);
+
+    if (!state.calibrated && (state.trackingMaxHands ?? 1) > 1 && (state.calibrationHandCount ?? 0) <= 1) {
+      ctx.font = `12px ${TOKENS.fontBody}`;
+      ctx.fillStyle = TOKENS.hudMuted;
+      ctx.fillText('Either hand works — show one or both', centerX, centerY + radius + 36);
+    }
     ctx.restore();
   }
 

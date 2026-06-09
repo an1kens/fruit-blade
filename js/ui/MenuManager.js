@@ -102,6 +102,39 @@ export class MenuManager {
     this.leaderboardEntries = entries;
   }
 
+  formatFilterLabel(value, fallback) {
+    const id = value || fallback;
+    return id.charAt(0).toUpperCase() + id.slice(1);
+  }
+
+  updateLeaderboardInPlace(entries, mode, difficulty) {
+    this.leaderboardEntries = entries;
+    this.leaderboardFilterMode = mode;
+    this.leaderboardFilterDifficulty = difficulty;
+
+    const modeLabel = this.formatFilterLabel(mode, 'classic');
+    const diffLabel = this.formatFilterLabel(difficulty, 'medium');
+
+    const scoresPanel = this.panels.find((p) => p.id === 'scores-panel');
+    if (scoresPanel) {
+      const maxRows = scoresPanel.entries?.length || entries.length;
+      scoresPanel.entries = entries.slice(0, maxRows);
+      scoresPanel.filterMode = mode;
+      scoresPanel.filterDifficulty = difficulty;
+    }
+
+    const filterPanel = this.panels.find((p) => p.id === 'filter-panel');
+    if (filterPanel?.pills) {
+      filterPanel.pills[0].value = modeLabel;
+      filterPanel.pills[1].value = diffLabel;
+    }
+
+    for (const fruit of this.fruits) {
+      if (fruit.action === 'lb-cycle-mode') fruit.label = modeLabel;
+      if (fruit.action === 'lb-cycle-diff') fruit.label = diffLabel;
+    }
+  }
+
   setLeaderboardFilter(mode, difficulty) {
     this.leaderboardFilterMode = mode;
     this.leaderboardFilterDifficulty = difficulty;
@@ -361,7 +394,7 @@ export class MenuManager {
       new MenuFruit({
         type: 'orange',
         label: modeLabel,
-        sublabel: 'Tap to cycle',
+        sublabel: 'Slice to cycle',
         action: 'lb-cycle-mode',
         actionValue: null,
         x: cx - pillSpread,
@@ -375,7 +408,7 @@ export class MenuManager {
       new MenuFruit({
         type: 'mango',
         label: diffLabel,
-        sublabel: 'Tap to cycle',
+        sublabel: 'Slice to cycle',
         action: 'lb-cycle-diff',
         actionValue: null,
         x: cx + pillSpread,
